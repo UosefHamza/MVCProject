@@ -1,3 +1,7 @@
+using Company.Data.Contexts;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+
 namespace Copmany.Web
 {
     public class Program
@@ -8,6 +12,12 @@ namespace Copmany.Web
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            builder.Services.AddDbContext<CompanyDbContext> (Options =>
+            {
+                Options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+            }
+            );
 
             var app = builder.Build();
 
